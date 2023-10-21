@@ -87,5 +87,10 @@ public class Result : MonoBehaviour
     {
         SceneManager.LoadScene("MainGame");
     }
+    
+    public void BtnClickSelectSong()
+    {
+        SceneManager.LoadScene("StageSelectScene");
+    }
 
 }

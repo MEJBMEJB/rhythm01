@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1967645315}
     m_Modifications:
+    - target: {fileID: 3446715193182911223, guid: ea17abc015fda23488058ab2bde8abb4, type: 3}
+      propertyPath: m_Name
+      value: Button_SelectSong
+      objectReference: {fileID: 0}
     - target: {fileID: 4123608032551535571, guid: ea17abc015fda23488058ab2bde8abb4, type: 3}
       propertyPath: m_Name
       value: Result
@@ -214,6 +218,42 @@ PrefabInstance:
     - target: {fileID: 4490301470139338992, guid: ea17abc015fda23488058ab2bde8abb4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7806826940718837439, guid: ea17abc015fda23488058ab2bde8abb4, type: 3}
+      propertyPath: m_text
+      value: "\uACE1\uC120\uD0DD \uD654\uBA74"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7806826940718837439, guid: ea17abc015fda23488058ab2bde8abb4, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: f0cead055706e0a4599eb8597d0c3bc5, type: 2}
+    - target: {fileID: 7806826940718837439, guid: ea17abc015fda23488058ab2bde8abb4, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -4160815741480716232, guid: f0cead055706e0a4599eb8597d0c3bc5, type: 2}
+    - target: {fileID: 7806826940718837439, guid: ea17abc015fda23488058ab2bde8abb4, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7978439283430189725, guid: ea17abc015fda23488058ab2bde8abb4, type: 3}
+      propertyPath: m_text
+      value: "\uC7AC\uC2DC\uB3C4"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7978439283430189725, guid: ea17abc015fda23488058ab2bde8abb4, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: f0cead055706e0a4599eb8597d0c3bc5, type: 2}
+    - target: {fileID: 7978439283430189725, guid: ea17abc015fda23488058ab2bde8abb4, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -4160815741480716232, guid: f0cead055706e0a4599eb8597d0c3bc5, type: 2}
+    - target: {fileID: 7978439283430189725, guid: ea17abc015fda23488058ab2bde8abb4, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8995895789577489337, guid: ea17abc015fda23488058ab2bde8abb4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BtnClickSelectSong
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
