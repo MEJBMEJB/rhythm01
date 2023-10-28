@@ -3,8 +3,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.IO;
-using System.Collections.Generic;
-using System.Data;
 
 /*
  * 선택음악을 정하는 역할을 한다
@@ -120,7 +118,7 @@ public class StageMenu : MonoBehaviour
     {
         _txtSongName.text = _listSong[_currentSelectIndex]._songName;
         _txtSongArtist.text = _listSong[_currentSelectIndex]._artistName;
-        _imgDisk.sprite = _listSong[_currentSelectIndex]._songSprite;
+        _imgDisk.sprite = _listSong[_currentSelectIndex].songSprite;
         _txtTopScore.text = _listSong[_currentSelectIndex]._topScore.ToString();
 
         AudioManager.instance.PlayBGM("BGM" + _currentSelectIndex.ToString());
@@ -198,6 +196,7 @@ public class StageMenu : MonoBehaviour
         //RememberDataBeforeStart.Instance.PlaybpmValue = _listSong[_currentSelectIndex]._bpmValue;
         //RememberDataBeforeStart.Instance.BGMName = _listSong[_currentSelectIndex]._bgmName;
         //RememberDataBeforeStart.Instance.idxBGM = _currentSelectIndex;
+        
         // 레지스트리에 현재 실행하는 음악 정보를 저장한다 - for PlayerPrefs
         PlayerPrefs.SetInt("PlayBPM", _listSong[_currentSelectIndex]._bpmValue);
         PlayerPrefs.SetString("BGMName", _listSong[_currentSelectIndex]._bgmName);
