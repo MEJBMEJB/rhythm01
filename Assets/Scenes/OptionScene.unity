@@ -1751,7 +1751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _strSelectLanguage:
   - English
-  - "\uD55C\uAD6D"
+  - "\uD55C\uAD6D\uC5B4"
   _ObjselectLanguage: {fileID: 486998300}
   _ObjGameMode: {fileID: 1905125173}
   _gameModeSize: 2
@@ -1769,7 +1769,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1627976158}
   m_Layer: 5
-  m_Name: 'Btn_Alignment '
+  m_Name: Btn_Default,Save,Return
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

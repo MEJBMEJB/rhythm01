@@ -183,6 +183,8 @@ public class OptionMenu : MonoBehaviour
         }
         _ObjselectLanguage.text = _strSelectLanguage[_optionValue.SelectLanguage];
         LanguageManagerOption.Instance.setLocal(_optionValue.SelectLanguage);
+
+        SetGameModeText();
     }
 
     public void BtnSelectGameMode() // 게임모드 변경
@@ -192,7 +194,9 @@ public class OptionMenu : MonoBehaviour
             _optionValue.GameMode = _gameModeSize - 1;
         }
         //_ObjGameMode.text = _strSelectGameMode[_optionValue.GameMode];
-        _ObjGameMode.text = LanguageManagerOption.Instance.getText("StringTable", "Option_SelectGamemode");
+        Debug.Log($"GameMode = {_optionValue.GameMode}");
+
+        SetGameModeText();
     }
 
     // 게임오버(hp < 0)인 경우 게임오버 적용여부
@@ -221,16 +225,16 @@ public class OptionMenu : MonoBehaviour
         _optionValue.SelectLanguage = 0;
         _optionValue.GameMode = 0;
         _optionValue.GameOverMode = true;
+        
+        // Json 파일에 기록하기
+        SaveToJson(_optionValue.jsonFilePath);
 
         // UI 설정하기
         _ObjtoggleTapGameOver.GetComponent<Image>().sprite = _toggleTapGameOver[0];
         _ObjselectLanguage.text = _strSelectLanguage[0];
         LanguageManagerOption.Instance.setLocal(0);
-        _ObjGameMode.text = LanguageManagerOption.Instance.getText("StringTable", "Option_SelectGamemode");
-
-        // Json 파일에 기록하기
-        SaveToJson(_optionValue.jsonFilePath);
-
+        Debug.Log("SetDefault");
+        SetGameModeText();
     }
 
     private void SaveToJson(string path)
@@ -268,6 +272,16 @@ public class OptionMenu : MonoBehaviour
             _ObjtoggleTapGameOver.GetComponent<Image>().sprite = _toggleTapGameOver[1];
 
         _ObjselectLanguage.text = _strSelectLanguage[_optionValue.SelectLanguage];
-        _ObjGameMode.text = LanguageManagerOption.Instance.getText("StringTable", "Option_SelectGamemode");
+        Debug.Log($"LoadOptionData = {_optionValue.SelectLanguage}");
+        SetGameModeText();
+
+    }
+
+    private void SetGameModeText()
+    {
+        if (_optionValue.GameMode == 0)
+            _ObjGameMode.text = LanguageManagerOption.Instance.getText("StringTable", "Option_GamemodeFixed");
+        else if (_optionValue.GameMode == 1)
+            _ObjGameMode.text = LanguageManagerOption.Instance.getText("StringTable", "Option_GamemodeRandom");
     }
 }

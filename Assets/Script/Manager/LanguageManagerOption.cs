@@ -37,6 +37,8 @@ public class LanguageManagerOption : MonoBehaviour
         string strValue = File.ReadAllText(data.jsonFilePath);
         data = JsonUtility.FromJson<OptionValueToJson>(strValue);
 
+        Debug.Log($"setLocal idx = {idx}, data.language = {data.language}");
+
         if(idx == -1) 
         {
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[data.language];
@@ -52,7 +54,7 @@ public class LanguageManagerOption : MonoBehaviour
         string strReturnValue = "";
         Locale currentLanguage = LocalizationSettings.SelectedLocale;
         strReturnValue = LocalizationSettings.StringDatabase.GetLocalizedString(tableName, strKey, currentLanguage);
-        Debug.Log($"{strReturnValue}");
+        Debug.Log($"ReturnValue = {strReturnValue}");
         return strReturnValue;
     }
 }
