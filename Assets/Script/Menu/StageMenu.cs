@@ -14,6 +14,7 @@ using System.Data;
  
  */
 
+/*
 [System.Serializable]
 public class SongInfo
 {
@@ -51,6 +52,7 @@ public class SongInfoToJson
         set => _jsonFilePath = value;
     }
 }
+*/
 
 
 public class StageMenu : MonoBehaviour
