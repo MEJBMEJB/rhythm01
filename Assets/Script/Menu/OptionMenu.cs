@@ -53,7 +53,7 @@ public class SongInfoToJson
 #endregion
 
 #region Option 설정 값을 json <-> Application 주고 받기위해 필요한 class
-[System.Serializable]
+//[System.Serializable]
 public class OptionSettingValue // json에 쓰기전 메모리에 담기는 데이터
 {
     public OptionSettingValue() 
@@ -66,13 +66,14 @@ public class OptionSettingValue // json에 쓰기전 메모리에 담기는 데이터
         get => _jsonFilePath;
         set => _jsonFilePath = value;
     }
+
     private bool _isGameOverMode;
     public bool GameOverMode
     {
         get => _isGameOverMode;
         set => _isGameOverMode = value; 
     }
-    private int _selectLanguage; //0:korean 1:English
+    private int _selectLanguage;
     public int SelectLanguage
     {
         get => _selectLanguage; 
@@ -85,19 +86,30 @@ public class OptionSettingValue // json에 쓰기전 메모리에 담기는 데이터
         set => _gameMode = value;
     }
 }
+[System.Serializable]
 public class OptionValueToJson //json에 쓰기 위한 데이터들
 {
-    public OptionValueToJson(bool tmpGameOver, int tmpLanguage, int tmpGameMode)
+    public OptionValueToJson(bool tmpGameOver , int tmpLanguage, int tmpGameMode)
     {
         GameOverMode = tmpGameOver;
         language = tmpLanguage;
         gameMode= tmpGameMode;
+        _jsonFilePath = Application.dataPath + "/JsonFile/OptionData.json";
     }
     public OptionValueToJson()
-    { }
+    {
+        _jsonFilePath = Application.dataPath + "/JsonFile/OptionData.json";
+    }
     public bool GameOverMode;
     public int language;
     public int gameMode;
+
+    private string _jsonFilePath;
+    public string jsonFilePath
+    {
+        get => _jsonFilePath;
+        set => _jsonFilePath = value;
+    }
 }
 #endregion
 
@@ -113,9 +125,9 @@ public class OptionMenu : MonoBehaviour
 
     //게임모드 선택
     [SerializeField]
-    private string[] _strSelectGameMode;
-    [SerializeField]
     private TMP_Text _ObjGameMode = null;
+    [SerializeField]
+    private int _gameModeSize;
 
     //게임오버 활성화 여부관련 이미지 설정
     [SerializeField]
@@ -170,15 +182,17 @@ public class OptionMenu : MonoBehaviour
             _optionValue.SelectLanguage = 0;
         }
         _ObjselectLanguage.text = _strSelectLanguage[_optionValue.SelectLanguage];
+        LanguageManagerOption.Instance.setLocal(_optionValue.SelectLanguage);
     }
 
     public void BtnSelectGameMode() // 게임모드 변경
     {
         if(--_optionValue.GameMode < 0)
         {
-            _optionValue.GameMode = _strSelectGameMode.Length - 1;
+            _optionValue.GameMode = _gameModeSize - 1;
         }
-        _ObjGameMode.text = _strSelectGameMode[_optionValue.GameMode];
+        //_ObjGameMode.text = _strSelectGameMode[_optionValue.GameMode];
+        _ObjGameMode.text = LanguageManagerOption.Instance.getText("StringTable", "Option_SelectGamemode");
     }
 
     // 게임오버(hp < 0)인 경우 게임오버 적용여부
@@ -200,8 +214,7 @@ public class OptionMenu : MonoBehaviour
 
     private void SetDefault()
     {
-        // 초기설정: 게임오버모드(true)
-        // 언어설정: 한국어(korean) == 0
+        // 초기설정: 게임오버모드(true)        
         // 게임모드: 고정위치
 
         // 클래스값에 반영 
@@ -212,7 +225,8 @@ public class OptionMenu : MonoBehaviour
         // UI 설정하기
         _ObjtoggleTapGameOver.GetComponent<Image>().sprite = _toggleTapGameOver[0];
         _ObjselectLanguage.text = _strSelectLanguage[0];
-        _ObjGameMode.text = _strSelectGameMode[0];
+        LanguageManagerOption.Instance.setLocal(0);
+        _ObjGameMode.text = LanguageManagerOption.Instance.getText("StringTable", "Option_SelectGamemode");
 
         // Json 파일에 기록하기
         SaveToJson(_optionValue.jsonFilePath);
@@ -239,7 +253,7 @@ public class OptionMenu : MonoBehaviour
     {
         //json 파일에서 문자열 가져오기
         OptionValueToJson data = new OptionValueToJson();
-        string strLoad = File.ReadAllText( _optionValue.jsonFilePath );
+        string strLoad = File.ReadAllText(data.jsonFilePath );
         data = JsonUtility.FromJson<OptionValueToJson>(strLoad);
 
         //가져온 문자열 데이터를 메모리에 저장
@@ -254,6 +268,6 @@ public class OptionMenu : MonoBehaviour
             _ObjtoggleTapGameOver.GetComponent<Image>().sprite = _toggleTapGameOver[1];
 
         _ObjselectLanguage.text = _strSelectLanguage[_optionValue.SelectLanguage];
-        _ObjGameMode.text = _strSelectGameMode[_optionValue.GameMode];
+        _ObjGameMode.text = LanguageManagerOption.Instance.getText("StringTable", "Option_SelectGamemode");
     }
 }
