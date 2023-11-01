@@ -3,60 +3,13 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.IO;
-
-/*
- * 선택음악을 정하는 역할을 한다
- *  SonInfo class -> 음악제목, 이름, bpm 정보를 담고있다
-
- 
- 
- */
-
-/*
-[System.Serializable]
-public class SongInfo
-{
-    public SongInfo(string name, string artist, string bgm, int bpm, int topscore)
-    {
-        _songName = name;
-        _artistName = artist;
-        _bgmName = bgm;
-        _bpmValue = bpm;
-        _topScore = topscore;
-    }
-    public SongInfo()
-    {
-
-    }
-    public string _songName;
-    public string _artistName;
-    public string _bgmName; //스크립트에서 실행하기 위한 문자열
-    public int _bpmValue;
-    public Sprite _songSprite;
-    public int _topScore;
-}
-[System.Serializable]
-public class SongInfoToJson
-{
-    public SongInfoToJson() {
-        listSong = new List<SongInfo>();
-        _jsonFilePath = Application.dataPath + "/JsonFile/SaveData.json";
-    }
-    public List<SongInfo> listSong;
-    private string _jsonFilePath;
-    public string jsonFilePath
-    {
-        get => _jsonFilePath;
-        set => _jsonFilePath = value;
-    }
-}
-*/
-
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 public class StageMenu : MonoBehaviour
 {
     [SerializeField]
-    private SongInfo[] _listSong = null;
+    private SongInfo[] _listSong;
     [SerializeField]
     private TMP_Text _txtSongName = null;
     [SerializeField]
@@ -118,7 +71,7 @@ public class StageMenu : MonoBehaviour
     {
         _txtSongName.text = _listSong[_currentSelectIndex]._songName;
         _txtSongArtist.text = _listSong[_currentSelectIndex]._artistName;
-        _imgDisk.sprite = _listSong[_currentSelectIndex].songSprite;
+        _imgDisk.sprite = _listSong[_currentSelectIndex]._songSprite;
         _txtTopScore.text = _listSong[_currentSelectIndex]._topScore.ToString();
 
         AudioManager.instance.PlayBGM("BGM" + _currentSelectIndex.ToString());
@@ -132,11 +85,11 @@ public class StageMenu : MonoBehaviour
             return;
         }
         SongInfoToJson listSongtmp = new SongInfoToJson();
-        string textData = File.ReadAllText(_jsonFilePath);        
-        //Debug.Log($"{textData}");
+        string textData = File.ReadAllText(_jsonFilePath);                
 
         listSongtmp = JsonUtility.FromJson<SongInfoToJson>(textData);
-        
+        Debug.Log($"{listSongtmp.listSong.Count}");
+
         int idx = 0;
         for(idx = 0; idx < listSongtmp.listSong.Count; idx++)
         {
@@ -145,6 +98,7 @@ public class StageMenu : MonoBehaviour
             _listSong[idx]._bgmName = listSongtmp.listSong[idx]._bgmName;
             _listSong[idx]._topScore = listSongtmp.listSong[idx]._topScore;
         }
+        
         //foreach (SongInfo value in listSongtmp.listSong)
         //{
         //
@@ -189,14 +143,7 @@ public class StageMenu : MonoBehaviour
     }
 
     public void BtnPlayGame()
-    {
-        //선택해!! 
-
-        // 실제 게임에 들어가기 전에 필요한 데이터들은 담는다(씬이동하기 전에) - for DontDestroyOnLoad
-        //RememberDataBeforeStart.Instance.PlaybpmValue = _listSong[_currentSelectIndex]._bpmValue;
-        //RememberDataBeforeStart.Instance.BGMName = _listSong[_currentSelectIndex]._bgmName;
-        //RememberDataBeforeStart.Instance.idxBGM = _currentSelectIndex;
-        
+    {        
         // 레지스트리에 현재 실행하는 음악 정보를 저장한다 - for PlayerPrefs
         PlayerPrefs.SetInt("PlayBPM", _listSong[_currentSelectIndex]._bpmValue);
         PlayerPrefs.SetString("BGMName", _listSong[_currentSelectIndex]._bgmName);

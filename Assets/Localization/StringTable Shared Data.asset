@@ -47,6 +47,10 @@ MonoBehaviour:
     m_Key: Option_GamemodeRandom
     m_Metadata:
       m_Items: []
+  - m_Id: 1366801406263296
+    m_Key: Option_GameVolumeSet
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

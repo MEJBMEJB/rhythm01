@@ -837,7 +837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &940636508
 Transform:
   m_ObjectHideFlags: 0
@@ -1734,29 +1734,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _listSong:
-  - _songName: Song0
-    _artistName: Artist0
-    _bgmName: BGM0
-    _bpmValue: 130
-    _songSprite: {fileID: 21300000, guid: 49999b4f86fcb0a4497ceddb45351b2d, type: 3}
-    _topScore: 0
-  - _songName: Song1
-    _artistName: Artist1
-    _bgmName: BGM1
-    _bpmValue: 80
-    _songSprite: {fileID: 21300000, guid: fa6f026564881004e96dbe8f8adbdc49, type: 3}
-    _topScore: 0
-  - _songName: Song2
-    _artistName: Artist2
-    _bgmName: BGM2
-    _bpmValue: 200
-    _songSprite: {fileID: 21300000, guid: 32e2e184012c9be46a4b28e45c04a78e, type: 3}
-    _topScore: 0
+  - _songName: song00
+    _artistName: artist00
+    _bgmName: bgm00
+    _bpmValue: 11
+    _songSprite: {fileID: 0}
+    _topScore: 10
+  - _songName: song01
+    _artistName: artist01
+    _bgmName: bgm01
+    _bpmValue: 21
+    _songSprite: {fileID: 0}
+    _topScore: 20
+  - _songName: song02
+    _artistName: artist02
+    _bgmName: bgm02
+    _bpmValue: 31
+    _songSprite: {fileID: 0}
+    _topScore: 30
   _txtSongName: {fileID: 2074421953}
   _txtSongArtist: {fileID: 1153566522}
   _txtTopScore: {fileID: 1815614000}
   _imgDisk: {fileID: 1230178171}
-  _allowPreListen: 5
+  _allowPreListen: 30
 --- !u!1 &1984949733
 GameObject:
   m_ObjectHideFlags: 0

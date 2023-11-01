@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 [System.Serializable]
@@ -38,6 +39,7 @@ public class AudioManager : MonoBehaviour
     }
     public void PlayBGM(string p_bgmName)
     {
+        bool isFind = false;
         for(int i = 0; i < _bgm.Length; i++) 
         {
             if (_bgm[i]._name != p_bgmName)
@@ -45,8 +47,18 @@ public class AudioManager : MonoBehaviour
                 continue;
             }
             _bgmPlayer.clip = _bgm[i]._clip;
-            _bgmPlayer.Play(); 
+            //Debug.Log($"clip find = {i}, {p_bgmName}");
+            isFind = true;
             break;        
+        }
+        if(isFind)
+        {
+            OptionValueToJson data = new OptionValueToJson();
+            string strLoad = File.ReadAllText(data.jsonFilePath);
+            data = JsonUtility.FromJson<OptionValueToJson>(strLoad);
+            Debug.Log($"Let's Play {data.gameSoundVolume}");
+            _bgmPlayer.volume = data.gameSoundVolume;
+            _bgmPlayer.Play();
         }
     }
 

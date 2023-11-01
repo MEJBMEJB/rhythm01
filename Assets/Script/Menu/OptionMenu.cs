@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using UnityEngine.UI;
 using TMPro;
+using System;
+
 
 #region 곡 정보들을 json으로 읽기/쓰기를 위한 클래스
-//[System.Serializable]
+[System.Serializable]
 public class SongInfo
 {
     public SongInfo(string name, string artist, string bgm, int bpm, int topscore)
@@ -20,18 +22,12 @@ public class SongInfo
     }
     public SongInfo()
     {
-
     }
     public string _songName;
     public string _artistName;
     public string _bgmName; //스크립트에서 실행하기 위한 문자열
     public int _bpmValue;
-    private Sprite _songSprite;
-    public Sprite songSprite
-    {
-        get => _songSprite;
-        set => _songSprite = value;
-    }
+    public Sprite _songSprite;
     public int _topScore;
 }
 [System.Serializable]
@@ -51,6 +47,7 @@ public class SongInfoToJson
     }
 }
 #endregion
+
 
 #region Option 설정 값을 json <-> Application 주고 받기위해 필요한 class
 //[System.Serializable]
@@ -85,15 +82,24 @@ public class OptionSettingValue // json에 쓰기전 메모리에 담기는 데이터
         get => _gameMode; 
         set => _gameMode = value;
     }
+    private float _gameSoundVolume;
+    public float GameSoundVolume
+    {
+        get => _gameSoundVolume;
+        set => _gameSoundVolume = value;
+    }
+
 }
 [System.Serializable]
 public class OptionValueToJson //json에 쓰기 위한 데이터들
 {
-    public OptionValueToJson(bool tmpGameOver , int tmpLanguage, int tmpGameMode)
+    public OptionValueToJson(bool tmpGameOver , int tmpLanguage, int tmpGameMode, float tmpVol)
     {
         GameOverMode = tmpGameOver;
         language = tmpLanguage;
         gameMode= tmpGameMode;
+        gameSoundVolume = tmpVol;
+
         _jsonFilePath = Application.dataPath + "/JsonFile/OptionData.json";
     }
     public OptionValueToJson()
@@ -103,6 +109,7 @@ public class OptionValueToJson //json에 쓰기 위한 데이터들
     public bool GameOverMode;
     public int language;
     public int gameMode;
+    public float gameSoundVolume;
 
     private string _jsonFilePath;
     public string jsonFilePath
@@ -134,6 +141,10 @@ public class OptionMenu : MonoBehaviour
     private Sprite[] _toggleTapGameOver;
     [SerializeField]
     private GameObject _ObjtoggleTapGameOver;
+
+    //소리조절
+    [SerializeField]
+    private Slider _gameVolumeSlider;
 
     private OptionSettingValue _optionValue;
 
@@ -225,15 +236,17 @@ public class OptionMenu : MonoBehaviour
         _optionValue.SelectLanguage = 0;
         _optionValue.GameMode = 0;
         _optionValue.GameOverMode = true;
+        _optionValue.GameSoundVolume = 1.0f;
         
         // Json 파일에 기록하기
         SaveToJson(_optionValue.jsonFilePath);
 
         // UI 설정하기
+        Debug.Log("SetDefault");
         _ObjtoggleTapGameOver.GetComponent<Image>().sprite = _toggleTapGameOver[0];
         _ObjselectLanguage.text = _strSelectLanguage[0];
         LanguageManagerOption.Instance.setLocal(0);
-        Debug.Log("SetDefault");
+        _gameVolumeSlider.value = _optionValue.GameSoundVolume;        
         SetGameModeText();
     }
 
@@ -247,7 +260,8 @@ public class OptionMenu : MonoBehaviour
             }
         }
 
-        OptionValueToJson data = new OptionValueToJson(_optionValue.GameOverMode, _optionValue.SelectLanguage, _optionValue.GameMode);
+        _optionValue.GameSoundVolume = _gameVolumeSlider.value;
+        OptionValueToJson data = new OptionValueToJson(_optionValue.GameOverMode, _optionValue.SelectLanguage, _optionValue.GameMode, _optionValue.GameSoundVolume);
         string saveText = JsonUtility.ToJson(data, true);
         Debug.Log($"{saveText}, {path}");
         File.WriteAllText(path, saveText);
@@ -264,6 +278,7 @@ public class OptionMenu : MonoBehaviour
         _optionValue.GameOverMode = data.GameOverMode;
         _optionValue.SelectLanguage = data.language;
         _optionValue.GameMode = data.gameMode;
+        _optionValue.GameSoundVolume = data.gameSoundVolume;
 
         //저장된 메모리 값에 따라 UI에 반영한다
         if(_optionValue.GameOverMode)
@@ -274,6 +289,7 @@ public class OptionMenu : MonoBehaviour
         _ObjselectLanguage.text = _strSelectLanguage[_optionValue.SelectLanguage];
         Debug.Log($"LoadOptionData = {_optionValue.SelectLanguage}");
         SetGameModeText();
+        _gameVolumeSlider.value = _optionValue.GameSoundVolume;
 
     }
 

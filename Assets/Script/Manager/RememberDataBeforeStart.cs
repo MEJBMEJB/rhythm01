@@ -12,6 +12,8 @@ using UnityEngine;
 *2023-10-17
 필요한 값: 최고점수
 변환개선: bgm이름을 각 곡마다 index로 하면 어떨까?
+*2023-11-01
+Json파일과 PlayerPrefs를 이용하여 현재 사용하지 않는 클래스
 
  
  */
