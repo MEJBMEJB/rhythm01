@@ -56,12 +56,17 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W))
         {
-            if(_canMove)
+            //if(_canMove)
+            //{
+            //    if (_classtimeManager.CheckTiming()) //판정체크
+            //    {
+            //        StartAction();
+            //    }
+            //}
+
+            if(TimeManager.timeMgrInstance.CheckTiming())
             {
-                if (_classtimeManager.CheckTiming()) //판정체크
-                {
-                    StartAction();
-                }
+                StartAction();
             }
         }
     }
