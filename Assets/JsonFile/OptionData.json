@@ -1,5 +1,5 @@
 {
-    "GameOverMode": true,
+    "GameOverMode": false,
     "language": 0,
     "gameMode": 0,
     "gameSoundVolume": 0.1287914216518402

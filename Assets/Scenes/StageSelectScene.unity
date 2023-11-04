@@ -1672,13 +1672,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8198026801812133642, guid: 878898eaf98b96443885033f87ded834, type: 3}
+      propertyPath: _bgm.Array.data[0]._name
+      value: BGM00
+      objectReference: {fileID: 0}
+    - target: {fileID: 8198026801812133642, guid: 878898eaf98b96443885033f87ded834, type: 3}
       propertyPath: _bgm.Array.data[1]._clip
       value: 
       objectReference: {fileID: 8300000, guid: d7400d178f6f6d44b96cc488c4d0c98f, type: 3}
     - target: {fileID: 8198026801812133642, guid: 878898eaf98b96443885033f87ded834, type: 3}
+      propertyPath: _bgm.Array.data[1]._name
+      value: BGM01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8198026801812133642, guid: 878898eaf98b96443885033f87ded834, type: 3}
       propertyPath: _bgm.Array.data[2]._clip
       value: 
       objectReference: {fileID: 8300000, guid: 3a1620bfa1240a64b870d2b7ee69e5cb, type: 3}
+    - target: {fileID: 8198026801812133642, guid: 878898eaf98b96443885033f87ded834, type: 3}
+      propertyPath: _bgm.Array.data[2]._name
+      value: BGM02
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1738,19 +1750,19 @@ MonoBehaviour:
     _artistName: artist00
     _bgmName: bgm00
     _bpmValue: 11
-    _songSprite: {fileID: 0}
+    _songSprite: {fileID: 21300000, guid: fa6f026564881004e96dbe8f8adbdc49, type: 3}
     _topScore: 10
   - _songName: song01
     _artistName: artist01
     _bgmName: bgm01
     _bpmValue: 21
-    _songSprite: {fileID: 0}
+    _songSprite: {fileID: 21300000, guid: 32e2e184012c9be46a4b28e45c04a78e, type: 3}
     _topScore: 20
   - _songName: song02
     _artistName: artist02
     _bgmName: bgm02
     _bpmValue: 31
-    _songSprite: {fileID: 0}
+    _songSprite: {fileID: 21300000, guid: be98ba8dc7c79ee42862dfde3ac065c4, type: 3}
     _topScore: 30
   _txtSongName: {fileID: 2074421953}
   _txtSongArtist: {fileID: 1153566522}

@@ -3,17 +3,17 @@
         {
             "_songName": "song00",
             "_artistName": "artist00",
-            "_bgmName": "bgm00",
+            "_bgmName": "BGM00",
             "_bpmValue": 11,
             "_songSprite": {
                 "instanceID": 0
             },
-            "_topScore": 10
+            "_topScore": 100
         },
         {
             "_songName": "song01",
             "_artistName": "artist01",
-            "_bgmName": "bgm01",
+            "_bgmName": "BGM01",
             "_bpmValue": 21,
             "_songSprite": {
                 "instanceID": 0
@@ -23,7 +23,7 @@
         {
             "_songName": "song02",
             "_artistName": "artist02",
-            "_bgmName": "bgm02",
+            "_bgmName": "BGM02",
             "_bpmValue": 31,
             "_songSprite": {
                 "instanceID": 0

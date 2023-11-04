@@ -28,6 +28,7 @@ public class CenterFlame : MonoBehaviour
         //음악 출력 -> 끝날때까지 코루틴으로 기다리기
         //string playBGM = RememberDataBeforeStart.Instance.BGMName;        
         string playBGM = PlayerPrefs.GetString("BGMName");
+        Debug.Log($"PlayMusic = {playBGM}");
         AudioManager.instance.PlayBGM(playBGM);
         while (true)
         {
@@ -35,7 +36,8 @@ public class CenterFlame : MonoBehaviour
             if(AudioManager.instance.isFinishPlay())
             {
                 AudioManager.instance.StopBGM();
-                SceneManager.LoadScene("StageClear");
+                Debug.Log($"BGM Stop & moveScene = StageClear");
+                SceneManager.LoadScene("StageClear");                
                 break;
             }
         }

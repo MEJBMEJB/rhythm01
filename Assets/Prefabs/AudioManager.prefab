@@ -180,12 +180,12 @@ MonoBehaviour:
   - _name: Clap
     _clip: {fileID: 8300000, guid: d21442711cbd49a4a9881c1e2b14b688, type: 3}
   _bgm:
-  - _name: BGM0
+  - _name: BGM00
     _clip: {fileID: 8300000, guid: 434978ec45d73d2498f546c3b394fa19, type: 3}
-  - _name: BGM1
+  - _name: BGM01
     _clip: {fileID: 8300000, guid: 055e0e24eced21647931f75bd65871ee, type: 3}
-  - _name: BGM2
-    _clip: {fileID: 8300000, guid: 28b1d84f86cdfde4ba11187c906338c9, type: 3}
+  - _name: BGM02
+    _clip: {fileID: 8300000, guid: 3a1620bfa1240a64b870d2b7ee69e5cb, type: 3}
   _bgmPlayer: {fileID: 146428612907572859}
   _sfxPlayer:
   - {fileID: 1514585801555590575}

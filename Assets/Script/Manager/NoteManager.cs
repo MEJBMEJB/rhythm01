@@ -17,7 +17,7 @@ public class NoteManager : MonoBehaviour
     [SerializeField]
     Transform _tfNoteAppear = null;
 
-    private TimeManager _classtimeManager;
+    //private TimeManager _classtimeManager;
     private EffectManager _classeffectManager;
 
     private void Awake()
@@ -31,7 +31,7 @@ public class NoteManager : MonoBehaviour
     void Start()
     {
         _classeffectManager = FindObjectOfType<EffectManager>();
-        _classtimeManager = GetComponent<TimeManager>();
+        //_classtimeManager = GetComponent<TimeManager>();
         //_bpm = RememberDataBeforeStart.Instance.PlaybpmValue;
         _bpm = PlayerPrefs.GetInt("PlayBPM");
         Debug.Log($"BPM = {_bpm}");
@@ -49,13 +49,10 @@ public class NoteManager : MonoBehaviour
 
         if(_currentTime >= 60d / _bpm) //note 생성시간
         {
-            //GameObject t_note = Instantiate(_goNote, _tfNoteAppear.position, Quaternion.identity);
-            //t_note.transform.SetParent(this.transform);
-
             GameObject t_note = ObjectPool.Instance.NoteQueue.Dequeue();
             t_note.transform.position = _tfNoteAppear.position;
             t_note.SetActive(true);
-            _classtimeManager.boxNotList.Add(t_note);   
+            TimeManager.timeMgrInstance.boxNotList.Add(t_note);
             _currentTime -= 60d / _bpm;
         }
     }
@@ -77,7 +74,7 @@ public class NoteManager : MonoBehaviour
                 //Debug.Log($"before = {val}, After = {TimeManager.timeMgrInstance.GetjudgementRecord(4)}");
             }
 
-            _classtimeManager.boxNotList.Remove(collision.gameObject); //현재 처리해야될(게임상에 남아있다) 노트에서는 사라진다
+            TimeManager.timeMgrInstance.boxNotList.Remove(collision.gameObject);  //현재 처리해야될(게임상에 남아있다) 노트에서는 사라진다
             ObjectPool.Instance.NoteQueue.Enqueue(collision.gameObject); //노트가 생성된 큐에 다시 쌓는다.
             collision.gameObject.SetActive(false); //게임상에 남아있는 노트는 안보이게(비활성화)시킨다
         }

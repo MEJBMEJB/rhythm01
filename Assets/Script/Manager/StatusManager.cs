@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,12 +14,7 @@ public class StatusManager : MonoBehaviour
         get => _statusMgrinstance;
     }
 
-    private bool _isGameOver;
-    public bool IsGameOver
-    {
-        get => _isGameOver; 
-        set => _isGameOver = value; 
-    }
+    private bool _isGameOverMode;
 
     [SerializeField]
     private int _maxHp;
@@ -44,12 +40,21 @@ public class StatusManager : MonoBehaviour
         {
             _statusMgrinstance = this;
         }
-        _isGameOver = false;
+
+        //게임 오버 여부 확인하기
+        OptionValueToJson data = new OptionValueToJson();
+        string strLoad = File.ReadAllText(data.jsonFilePath);
+        data = JsonUtility.FromJson<OptionValueToJson>(strLoad);
+        _isGameOverMode = data.GameOverMode;
         _currentHp = _maxHp;
+        Debug.Log($"Awake statusManger");
     }
 
     public void DecreaseHp(int p_num)
     {
+        if (!_isGameOverMode)
+            return;
+
         _currentHp -= p_num;
         SettingHpImage();
         StartCoroutine(BlickCo());
