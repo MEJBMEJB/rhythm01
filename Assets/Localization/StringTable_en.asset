@@ -54,6 +54,18 @@ MonoBehaviour:
     m_Localized: Volume
     m_Metadata:
       m_Items: []
+  - m_Id: 2516458051141632
+    m_Localized: Would you like to return to default settings?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2516671822233600
+    m_Localized: "\rWould you like to save your changes?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2516796338536448
+    m_Localized: "\rWould you like to return to the home?"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

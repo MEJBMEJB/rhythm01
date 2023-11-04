@@ -120,6 +120,13 @@ public class OptionValueToJson //json에 쓰기 위한 데이터들
 }
 #endregion
 
+enum BUTTON_NAME //버튼 이름을 문자열에서 enum으로 변경
+{ 
+    DEFAULT = 0,
+    SAVE,
+    RETURN
+
+}
 
 
 public class OptionMenu : MonoBehaviour
@@ -146,12 +153,19 @@ public class OptionMenu : MonoBehaviour
     [SerializeField]
     private Slider _gameVolumeSlider;
 
+    //팝업
+    [SerializeField]
+    private GameObject _objPopUpMessage;
+    [SerializeField]
+    private TMP_Text _popUpText; //팝업메시지에 등장하는 메시지
+    private int _popUpIndex = -1; //어떤 버튼을 눌렀을까요? 
+
     private OptionSettingValue _optionValue;
 
     private void Awake()
     {
         _optionValue = new OptionSettingValue();
-
+        _objPopUpMessage.SetActive(false);
 
     }
 
@@ -171,17 +185,17 @@ public class OptionMenu : MonoBehaviour
     #region Save, Return, Default
     public void BtnSave()
     {
-        SaveToJson(_optionValue.jsonFilePath);
+        SetPopUpMessage(BUTTON_NAME.SAVE);
     }
 
     public void BtnReturnMain() //메인화면으로 돌아가기
     {
-        SceneManager.LoadScene("MainMenu");
+        SetPopUpMessage(BUTTON_NAME.RETURN);
     }
 
     public void BtnDefault() //초기설정으로
     {
-        SetDefault();
+        SetPopUpMessage(BUTTON_NAME.DEFAULT);
     }
     #endregion
 
@@ -227,6 +241,31 @@ public class OptionMenu : MonoBehaviour
     }
     #endregion
 
+
+    #region PopUp 버튼 네(Yes), 아니요(No) 결정 
+    public void PopUpClickYes()
+    {
+        BUTTON_NAME btnVal = (BUTTON_NAME)_popUpIndex;
+        switch(btnVal)
+        {
+            case BUTTON_NAME.DEFAULT:
+                SetDefault();
+                break;
+            case BUTTON_NAME.SAVE:
+                SaveToJson(_optionValue.jsonFilePath);
+                break;
+            case BUTTON_NAME.RETURN:
+                SceneManager.LoadScene("MainMenu");
+                break;
+        }
+        _objPopUpMessage.SetActive(false);
+    }
+    public void PopUpClickNo()
+    {
+        _objPopUpMessage.SetActive(false);
+        return;
+    }
+    #endregion
     private void SetDefault()
     {
         // 초기설정: 게임오버모드(true)        
@@ -236,8 +275,8 @@ public class OptionMenu : MonoBehaviour
         _optionValue.SelectLanguage = 0;
         _optionValue.GameMode = 0;
         _optionValue.GameOverMode = true;
-        _optionValue.GameSoundVolume = 1.0f;
-        
+        _gameVolumeSlider.value = 1.0f;
+
         // Json 파일에 기록하기
         SaveToJson(_optionValue.jsonFilePath);
 
@@ -246,7 +285,7 @@ public class OptionMenu : MonoBehaviour
         _ObjtoggleTapGameOver.GetComponent<Image>().sprite = _toggleTapGameOver[0];
         _ObjselectLanguage.text = _strSelectLanguage[0];
         LanguageManagerOption.Instance.setLocal(0);
-        _gameVolumeSlider.value = _optionValue.GameSoundVolume;        
+        _gameVolumeSlider.value = 1.0f;     
         SetGameModeText();
     }
 
@@ -299,5 +338,27 @@ public class OptionMenu : MonoBehaviour
             _ObjGameMode.text = LanguageManagerOption.Instance.getText("StringTable", "Option_GamemodeFixed");
         else if (_optionValue.GameMode == 1)
             _ObjGameMode.text = LanguageManagerOption.Instance.getText("StringTable", "Option_GamemodeRandom");
+    }
+
+    private void SetPopUpMessage(BUTTON_NAME btnVal)
+    {
+        _objPopUpMessage.SetActive(true);
+
+        _popUpIndex = (int)btnVal;
+        switch (btnVal)
+        {
+            case BUTTON_NAME.DEFAULT:
+                _popUpText.text = LanguageManagerOption.Instance.getText("StringTable", "Option_MessageDefault");
+                break;
+            case BUTTON_NAME.SAVE:
+                _popUpText.text = LanguageManagerOption.Instance.getText("StringTable", "Option_MessageSave");
+                break;
+            case BUTTON_NAME.RETURN:
+                _popUpText.text = LanguageManagerOption.Instance.getText("StringTable", "Option_MessageReturn");
+                break;
+            default:
+                _popUpText.text = "";
+                break;
+        }
     }
 }
